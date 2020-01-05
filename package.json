@@ -1,0 +1,87 @@
+{
+  "name": "marrakesh-service",
+  "version": "0.0.1",
+  "description": "Backend for the Marrakesh Game",
+  "main": "dist/server.js",
+  "scripts": {
+    "start": "npm run serve",
+    "build": "npm run build-ts && npm run lint",
+    "serve": "node dist/server.js",
+    "watch-node": "nodemon dist/server.js",
+    "watch": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-ts\" \"npm run watch-node\"",
+    "test": "jest --forceExit --coverage --verbose",
+    "watch-test": "npm run test -- --watchAll",
+    "build-ts": "tsc",
+    "watch-ts": "tsc -w",
+    "lint": "tsc --noEmit && eslint \"**/*.{js,ts}\" --quiet --fix",
+    "debug": "npm run build && npm run watch-debug",
+    "serve-debug": "nodemon --inspect dist/server.js",
+    "watch-debug": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-ts\" \"npm run serve-debug\"",
+    "security.test": "./node_modules/.bin/snyk test",
+    "docker.security.test": "./node_modules/.bin/snyk test",
+    "docker.run": "docker run -ti --rm=true --init -p 3000:3000 koenighotze/marrakesh-service",
+    "docker.lint": "docker run --rm -i hadolint/hadolint < Dockerfile",
+    "docker.build": "./scripts/docker_build.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marrakesh-game/marrakesh-service.git"
+  },
+  "keywords": [
+    "typescript",
+    "node",
+    "expressjs"
+  ],
+  "author": "David Schmitz <koenighotze@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/marrakesh-game/marrakesh-service/issues"
+  },
+  "homepage": "https://github.com/marrakesh-game/marrakesh-service#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "bunyan": "^1.8.12",
+    "compression": "^1.7.4",
+    "dotenv": "^8.2.0",
+    "errorhandler": "^1.5.1",
+    "express": "^4.17.1",
+    "serve-static": "^1.14.1"
+  },
+  "devDependencies": {
+    "@types/body-parser": "^1.17.1",
+    "@types/bunyan": "^1.8.6",
+    "@types/compression": "^1.0.1",
+    "@types/errorhandler": "0.0.32",
+    "@types/express": "^4.17.2",
+    "@types/jest": "^24.0.25",
+    "@types/node": "^13.1.4",
+    "@types/serve-static": "^1.13.3",
+    "@types/supertest": "^2.0.8",
+    "@typescript-eslint/eslint-plugin": "^2.14.0",
+    "@typescript-eslint/parser": "^2.14.0",
+    "concurrently": "^5.0.2",
+    "eslint": "^6.8.0",
+    "jest": "^24.9.0",
+    "nodemon": "^2.0.2",
+    "ntl": "^5.0.0",
+    "pre-commit": "^1.2.2",
+    "snyk": "^1.274.0",
+    "standardx": "^5.0.0",
+    "supertest": "^4.0.2",
+    "ts-jest": "^24.2.0",
+    "ts-node": "^8.5.4",
+    "typescript": "^3.7.4"
+  },
+  "eslintConfig": {
+    "rules": {
+      "no-unused-vars": "off",
+      "@typescript-eslint/no-unused-vars": "error"
+    }
+  },
+  "standardx": {
+    "parser": "@typescript-eslint/parser",
+    "plugins": [
+      "@typescript-eslint/eslint-plugin"
+    ]
+  }
+}
