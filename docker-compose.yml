@@ -1,0 +1,15 @@
+version: "2.4"
+services:
+  marrakesh:
+    image:
+      build:
+        context: .
+        args:
+          NAME: foo
+          CREATED: CREATED
+          TITLE: TITLE
+          REVISION: REVISION
+          SOURCE: SOURCE
+      name: koenighotze/marrakesh
+      init: true
+      command: [""]
