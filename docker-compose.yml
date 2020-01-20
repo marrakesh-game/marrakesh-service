@@ -1,15 +1,29 @@
 version: "2.4"
 services:
-  marrakesh:
-    image:
-      build:
-        context: .
-        args:
-          NAME: foo
-          CREATED: CREATED
-          TITLE: TITLE
-          REVISION: REVISION
-          SOURCE: SOURCE
-      name: koenighotze/marrakesh
-      init: true
-      command: [""]
+  mongodb:
+    image: mongo:4.2.1
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
+      MONGO_INITDB_DATABASE: marrakesh
+    ports:
+      - "27017:27017"
+    volumes:
+      - /data/db
+
+  # marrakesh:
+  #   image:
+  #     build:
+  #       context: .
+  #       args:
+  #         NAME: foo
+  #         CREATED: CREATED
+  #         TITLE: TITLE
+  #         REVISION: REVISION
+  #         SOURCE: SOURCE
+  #     name: koenighotze/marrakesh:dirty
+  #     init: true
+  #     command: [""]
+  #   depends_on:
+  #     - mongodb-healthcheck

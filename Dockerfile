@@ -21,8 +21,7 @@ RUN npm ci
 COPY src/ src/
 COPY test/ test/
 
-RUN npm run lint && \
-    npm run test && \
+RUN npm run test && \
     npm run build && \
     npm prune
 
