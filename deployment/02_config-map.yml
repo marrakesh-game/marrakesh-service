@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: marrakesh
+  name: marrakesh-configmap
+  labels:
+    app: marrakesh
+data:
+  my-key: my-value

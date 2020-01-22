@@ -1,27 +1,30 @@
 FROM node:12 AS build
 
-WORKDIR /home/node
+# WORKDIR /home/node
 
 COPY tsconfig.json \
   jest.config.js \
   .eslintignore \
   .eslintrc \
-  ./
+  /home/node/
 
 COPY package.json \
   package-lock.json \
-  ./
+  /home/node/
 
-RUN chown -R node:node .
+RUN chown -R node:node /home/node/
 
 USER node
+# hadolint ignore=DL3003
+RUN cd /home/node && \
+    npm ci
 
-RUN npm ci
+COPY src/ /home/node/src/
+COPY test/ /home/node/test/
 
-COPY src/ src/
-COPY test/ test/
-
-RUN npm run test && \
+# hadolint ignore=DL3003
+RUN cd /home/node/ && \
+    npm run test && \
     npm run build && \
     npm prune
 
@@ -29,9 +32,9 @@ FROM node:12-buster-slim
 USER node
 ENV NODE_ENV=production
 
-WORKDIR /home/node
-COPY --from=build /home/node/dist ./app
-COPY --from=build /home/node/node_modules ./node_modules
+# WORKDIR /home/node
+COPY --from=build /home/node/dist /home/node/app
+COPY --from=build /home/node/node_modules /home/node/node_modules
 
 ARG NAME=n/a
 ARG CREATED=n/a
@@ -46,5 +49,5 @@ LABEL org.opencontainers.image.title="${TITLE}"
 LABEL org.opencontainers.image.source="${SOURCE}"
 LABEL org.opencontainers.image.revision="${REVISION}"
 
-CMD ["node", "./app/server.js"]
+CMD ["node", "/home/node/app/server.js"]
 

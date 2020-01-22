@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: marrakesh
+  namespace: marrakesh
+spec:
+  replicas: 2
+  revisionHistoryLimit: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: marrakesh
+  template:
+    metadata:
+      labels:
+        app: marrakesh
+    spec:
+      containers:
+        - name: marrakesh
+          image: koenighotze/marrakesh-service:latest
+          imagePullPolicy: IfNotPresent
+          resources:
+            limits:
+              cpu: 10m
+              memory: 200Mi
+            requests:
+              cpu: 2m
+              memory: 200Mi
+          envFrom:
+            - configMapRef:
+                name: marrakesh-configmap
+          ports:
+            - name: http
+              containerPort: 3000
+          securityContext:
+            runAsUser: 1000
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            privileged: false
+          livenessProbe:
+            httpGet:
+              path: "/health"
+              port: 3000
+            initialDelaySeconds: 3
+            periodSeconds: 30
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: "/ready"
+              port: 3000
+            initialDelaySeconds: 3
+            periodSeconds: 30
+            failureThreshold: 3
+          terminationMessagePath: /dev/stdout

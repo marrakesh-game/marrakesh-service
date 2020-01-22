@@ -23,7 +23,6 @@
     "docker.run": "docker run -ti --rm=true --init -p 3000:3000 koenighotze/marrakesh-service",
     "docker.run.debug": "docker run -ti --rm=true --init -p 3000:3000 -p 9229:9229 koenighotze/marrakesh-service node --inspect=0.0.0.0 ./app/server.js",
     "docker.lint": "docker run --rm -i hadolint/hadolint < Dockerfile",
-    "docker.build": "./scripts/docker_build.sh",
     "circleci.validate": "circleci config validate"
   },
   "repository": {
@@ -94,7 +93,8 @@
       "@typescript-eslint/eslint-plugin"
     ],
     "ignore": [
-      "dist/"
+      "dist/",
+      "node_modules/"
     ]
   },
   "pre-commit": [

@@ -1,12 +1,12 @@
-import { Router } from 'express'
+import { Router, json } from 'express'
 import * as gameController from '../controllers/gameController'
-import bodyParser from 'body-parser'
 
-const jsonBodyParser = bodyParser.json({ limit: '100kb' })
+const jsonBodyParser = json({ limit: '100kb' })
 
 const games = Router()
 
-games.route('/')
+games
+  .route('/')
   .get(gameController.getGames)
   .post(jsonBodyParser, gameController.startNewGame)
 
