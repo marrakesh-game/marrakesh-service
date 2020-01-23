@@ -11,4 +11,5 @@ app.get('/', (req, res) => res.sendStatus(200))
 app.use('/games', games)
 app.use('/health', health)
 app.use('/ready', ready)
+
 export default app

@@ -1,13 +1,9 @@
 import { Router } from 'express'
-import os from 'os'
+import HealthController from '../controllers/healthController'
 
+const controller = new HealthController()
 const health = Router()
 
-health.route('/').get((req, res) =>
-  res.status(200).send({
-    hostname: os.hostname(),
-    upForSeconds: Math.floor(process.uptime())
-  })
-)
+health.route('/').get(controller.healthStatus)
 
 export default health

@@ -8,6 +8,10 @@ export default class TileBag {
   constructor(readonly tiles: Tile[]) {
   }
 
+  take(numberOfTiles: number): Tile[] {
+    return []
+  }
+
   putBack(tiles: Tile[]) {
     tiles.push(...tiles)
   }

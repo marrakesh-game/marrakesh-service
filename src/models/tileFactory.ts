@@ -5,10 +5,10 @@ import TileBag from './tileBag'
  * A tile plate holds 4 tiles.
  */
 class TilePlate {
-  constructor(readonly tiles: Array<Tile>) {
+  constructor(readonly tiles: Tile[]) {
   }
 
-  static of(tiles: Array<Tile>): TilePlate {
+  static of(tiles: Tile[]): TilePlate {
     return new TilePlate(tiles)
   }
 }
@@ -19,9 +19,8 @@ class TilePlate {
 class TileFactory {
   constructor(readonly tileBag: TileBag) {}
 
-
-  produce(): Tile[] {
-    return []
+  produce(): TilePlate {
+    return TilePlate.of(this.tileBag.take(4))
   }
 
   static forPlayers(numberOfPlayers: number, tileBag: TileBag) {
@@ -51,4 +50,7 @@ class TileFactory {
   }
 }
 
+export {
+  TilePlate
+}
 export default TileFactory
