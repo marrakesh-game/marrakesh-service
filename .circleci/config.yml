@@ -14,7 +14,7 @@ jobs:
       - run:
           name: Build docker image
           command: |
-            DOCKER_BUILDKIT=1 docker build -t "${IMAGE_NAME}:${CIRCLE_SHA1}" --build-arg NAME="${IMAGE_NAME}" --build-arg CREATED="n/a" --build-arg TITLE="Marrakesh Backend" --build-arg REVISION="$CIRCLE_SHA1" --build-arg BUILD_URL="$CIRCLE_BUILD_URL" --build-arg SOURCE="$CIRCLE_REPOSITORY_URL" .
+            docker build -t "${IMAGE_NAME}:${CIRCLE_SHA1}" --build-arg NAME="${IMAGE_NAME}" --build-arg CREATED="n/a" --build-arg TITLE="Marrakesh Backend" --build-arg REVISION="$CIRCLE_SHA1" --build-arg BUILD_URL="$CIRCLE_BUILD_URL" --build-arg SOURCE="$CIRCLE_REPOSITORY_URL" .
 
       - run:
           name: Push docker image to Docker Hub
