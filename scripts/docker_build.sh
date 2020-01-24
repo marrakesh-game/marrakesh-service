@@ -7,7 +7,7 @@ TITLE="$(fx package.json  'this.description')"
 REVISION="$(git rev-parse --short HEAD)"
 SOURCE="$(git config --get remote.origin.url)"
 
-docker build \
+DOCKER_BUILDKIT=1 docker build \
   -t "koenighotze/marrakesh-service" \
   --build-arg NAME="$NAME" \
   --build-arg CREATED="$CREATED" \
