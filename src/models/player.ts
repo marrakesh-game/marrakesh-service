@@ -7,12 +7,12 @@ import PatternWall from './patternWall'
 class Player {
   score: number
 
-  constructor(readonly name: string, readonly tilePlan: TilePlan, readonly patternWall: PatternWall) {
+  constructor (readonly name: string, readonly tilePlan: TilePlan, readonly patternWall: PatternWall) {
     this.score = 0
   }
 
-  static newPlayer(name: string) {
-    return new Player(name, TilePlan.newTilePlan(), new PatternWall())
+  static newPlayer (name: string) {
+    return new Player(name, TilePlan.newTilePlan(), new PatternWall([]))
   }
 
   toString = () => `Player ${this.name}, Score: ${this.score}`

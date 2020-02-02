@@ -63,6 +63,4 @@ describe('the tilerow', () => {
       expect(row.isComplete()).toBeTruthy()
     })
   })
-
-
 })

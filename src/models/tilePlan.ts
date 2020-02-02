@@ -8,18 +8,18 @@ class TileRow {
   headOffset = 0
   primaryColor: TileColor = undefined
 
-  constructor(readonly tiles: boolean[]) {}
+  constructor (readonly tiles: boolean[]) {}
 
   isEmpty = () => this.headOffset === 0
 
-  appendTiles(...newTiles: Tile[]): Tile[] {
+  appendTiles (...newTiles: Tile[]): Tile[] {
     if (this.isEmpty()) {
       this.primaryColor = newTiles[0].tileColor
     }
 
     while (this.headOffset < this.tiles.length && this.headOffset < newTiles.length) {
       this.tiles[this.headOffset] = true
-      this.headOffset ++
+      this.headOffset++
     }
 
     return newTiles.slice(this.headOffset)
@@ -29,7 +29,7 @@ class TileRow {
 
   isComplete = () => this.headOffset === this.tiles.length
 
-  static newTileRow(numberOfTiles: number) {
+  static newTileRow (numberOfTiles: number) {
     const row = new Array<boolean>(numberOfTiles).fill(false)
 
     return new TileRow(row)
@@ -46,20 +46,20 @@ class BottomRow {
  * Represents the plan where a player can place tiles.
  */
 class TilePlan {
-  constructor(readonly tileRows: TileRow[]) {}
+  constructor (readonly tileRows: TileRow[]) {}
 
-  static newTilePlan() {
+  static newTilePlan () {
     return new TilePlan([
       TileRow.newTileRow(1),
       TileRow.newTileRow(2),
       TileRow.newTileRow(3),
       TileRow.newTileRow(4),
-      TileRow.newTileRow(5),
+      TileRow.newTileRow(5)
     ])
   }
 
   rowToString = (row: TileRow) =>
-    `(${row.primaryColor || 'n/a'}) ${row.tiles.map((t) => t ? 'X ' : 'O' ).join('-')}`
+    `(${row.primaryColor || 'n/a'}) ${row.tiles.map((t) => t ? 'X ' : 'O').join('-')}`
 
   toString = () => `
     TilePlan
@@ -69,8 +69,6 @@ class TilePlan {
     4] ${this.rowToString(this.tileRows[3])}
     5] ${this.rowToString(this.tileRows[4])}
   `
-
-
 }
 
 export {

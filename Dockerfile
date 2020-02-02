@@ -1,7 +1,5 @@
 FROM node:12 AS build
 
-# WORKDIR /home/node
-
 COPY tsconfig.json \
   jest.config.js \
   .eslintignore \
@@ -32,7 +30,6 @@ FROM node:12-buster-slim
 USER node
 ENV NODE_ENV=production
 
-# WORKDIR /home/node
 COPY --from=build /home/node/dist /home/node/app
 COPY --from=build /home/node/node_modules /home/node/node_modules
 
@@ -42,6 +39,8 @@ ARG TITLE=n/a
 ARG SOURCE=n/a
 ARG REVISION=n/a
 
+ENV VERSION=${REVISION}
+
 LABEL org.opencontainers.image.authors="David Schmitz / @Koenighotze"
 LABEL org.opencontainers.image.name="${NAME}"
 LABEL org.opencontainers.image.created="${CREATED}"
@@ -49,5 +48,6 @@ LABEL org.opencontainers.image.title="${TITLE}"
 LABEL org.opencontainers.image.source="${SOURCE}"
 LABEL org.opencontainers.image.revision="${REVISION}"
 
-CMD ["node", "/home/node/app/server.js"]
+ENTRYPOINT [ "node" ]
+CMD [ "/home/node/app/server.js" ]
 

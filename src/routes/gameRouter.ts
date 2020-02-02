@@ -16,5 +16,4 @@ games
   .route('/:id')
   .get(gameController.getGameById)
 
-
 export default games

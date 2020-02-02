@@ -6,24 +6,24 @@
   "scripts": {
     "start": "npm run serve",
     "build": "npm run build-ts && npm run lint",
-    "serve": "node -r dotenv/config dist/server.js",
-    "watch-node": "nodemon -r dotenv/config dist/server.js",
+    "serve": "node -r dotenv/config --unhandled-rejections=strict dist/server.js",
+    "watch-node": "nodemon -r dotenv/config --unhandled-rejections=strict dist/server.js",
     "watch": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-ts\" \"npm run watch-node\"",
     "test": "jest --coverage --verbose",
     "watch-test": "npm run test -- --watchAll",
     "build-ts": "tsc",
     "watch-ts": "tsc -w",
-    "lint.fix": "standardx --fix",
-    "lint": "tsc --noEmit && standardx",
+    "lint-fix": "standardx --fix './**/*ts'",
+    "lint": "tsc --noEmit && standardx --verbose './**/*ts'  | npx snazzy",
     "debug": "npm run build && npm run watch-debug",
     "serve-debug": "nodemon -r dotenv/config --inspect dist/server.js",
     "watch-debug": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-ts\" \"npm run serve-debug\"",
     "security.test": "./node_modules/.bin/snyk test",
-    "docker.security.test": "./node_modules/.bin/snyk test",
-    "docker.run": "docker run -ti --rm=true --init -p 3000:3000 koenighotze/marrakesh-service",
-    "docker.run.debug": "docker run -ti --rm=true --init -p 3000:3000 -p 9229:9229 koenighotze/marrakesh-service node --inspect=0.0.0.0 ./app/server.js",
-    "docker.lint": "docker run --rm -i hadolint/hadolint < Dockerfile",
-    "circleci.validate": "circleci config validate"
+    "docker-security-test": "./node_modules/.bin/snyk test",
+    "docker-run": "docker run -ti --rm=true --init -p 3000:3000 koenighotze/marrakesh-service",
+    "docker-run-debug": "docker run -ti --rm=true --init -p 3000:3000 -p 9229:9229 koenighotze/marrakesh-service node --inspect=0.0.0.0 ./app/server.js",
+    "docker-lint": "docker run --rm -i hadolint/hadolint < Dockerfile",
+    "circleci-validate": "circleci config validate"
   },
   "repository": {
     "type": "git",
@@ -50,6 +50,7 @@
     "dotenv": "^8.2.0",
     "errorhandler": "^1.5.1",
     "express": "^4.17.1",
+    "http-status": "^1.4.2",
     "joi": "^14.3.1",
     "mongodb": "^3.4.1",
     "serve-static": "^1.14.1",
@@ -77,18 +78,13 @@
     "nodemon": "^2.0.2",
     "ntl": "^5.0.0",
     "pre-commit": "^1.2.2",
+    "snazzy": "^8.0.0",
     "snyk": "^1.274.0",
     "standardx": "^5.0.0",
     "supertest": "^4.0.2",
     "ts-jest": "^24.2.0",
     "ts-node": "^8.5.4",
     "typescript": "^3.7.4"
-  },
-  "eslintConfig": {
-    "rules": {
-      "no-unused-vars": "off",
-      "@typescript-eslint/no-unused-vars": "error"
-    }
   },
   "standardx": {
     "parser": "@typescript-eslint/parser",
@@ -98,11 +94,14 @@
     "ignore": [
       "dist/",
       "node_modules/"
+    ],
+    "envs": [
+      "jest"
     ]
   },
   "pre-commit": [
     "test",
     "lint",
-    "docker.lint"
+    "docker-lint"
   ]
 }

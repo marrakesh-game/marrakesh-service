@@ -5,23 +5,23 @@ import TileColor from './tileColor'
  * Holds all available tiles for a game.
  */
 export default class TileBag {
-  constructor(readonly tiles: Tile[]) {
+  constructor (readonly tiles: Tile[]) {
   }
 
-  take(numberOfTiles: number): Tile[] {
-    return []
+  take (numberOfTiles: number): Tile[] {
+    return new Array<Tile>(numberOfTiles)
   }
 
-  putBack(tiles: Tile[]) {
+  putBack (tiles: Tile[]) {
     tiles.push(...tiles)
   }
 
-  private static generateTiles(tileColor: TileColor) {
+  private static generateTiles (tileColor: TileColor) {
     const tiles = new Array(20).fill(1)
     return tiles.map(() => Tile.ofColour(tileColor))
   }
 
-  static newTileBag() {
+  static newTileBag () {
     const colors = [
       TileColor.Red,
       TileColor.Black,
@@ -34,8 +34,7 @@ export default class TileBag {
     return new TileBag(tiles)
   }
 
-  public toString() {
+  public toString () {
     return `TileBag [${this.tiles}]`
   }
-
 }

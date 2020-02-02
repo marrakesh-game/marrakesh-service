@@ -29,9 +29,8 @@ const isHealthy: () => Promise<boolean> = async () => {
     }
 
     const cursor = getClient().db('local').collection('startup_log').find({})
-    return null !== await cursor.next()
-  }
-  catch (e) {
+    return await cursor.next() !== null
+  } catch (e) {
     logger.error(e.message)
     return false
   }

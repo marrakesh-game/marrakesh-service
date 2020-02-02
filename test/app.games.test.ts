@@ -1,7 +1,7 @@
 import request from 'supertest'
 import app from '../src/app'
 
-describe('GET /', () => {
+describe('the games route', () => {
   it('should return 200 OK', () => {
     return request(app)
       .get('/')

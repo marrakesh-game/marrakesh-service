@@ -9,22 +9,21 @@ enum GameState {
   Finished
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 class GameRound {
-  constructor(readonly players: Player[], readonly tileFactories: TileFactory[], readonly tileBag: TileBag) {
+  constructor (readonly players: Player[], readonly tileFactories: TileFactory[], readonly tileBag: TileBag) {
   }
 
-  setupTilePlates() {
+  setupTilePlates () {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const plates = this.tileFactories.forEach((factory) => factory.produce())
   }
 
-
-
-  play() {
+  play () {
     // setup tile factories
 
-
     // while tile factories are not empty
-      // each player picks tiles and places them on the tileplan
+    // each player picks tiles and places them on the tileplan
 
     // each player moves tiles from the completed tilerows to the tileplan
 
@@ -38,34 +37,34 @@ class GameRound {
 class Game {
   gameState = GameState.Ongoing
 
-  constructor(readonly id: string, readonly players: Player[], readonly tileFactories: TileFactory[], readonly tileBag: TileBag) {
+  constructor (readonly id: string, readonly players: Player[], readonly tileFactories: TileFactory[], readonly tileBag: TileBag) {
   }
 
-  gameOver() {
+  gameOver () {
     // one of the player's pattern wall is in a finished state
     return false
   }
 
-  winner(): Player[]{
+  winner (): Player[] {
     return null
   }
 
-  playRound() {
+  playRound () {
     if (this.gameOver()) {
       this.gameState = GameState.Finished
       return this.winner()
     }
     // while game is not over
-      // setup tile factories
-      // while tile factories are not empty
-        // each player picks tiles and places them on the tileplan
+    // setup tile factories
+    // while tile factories are not empty
+    // each player picks tiles and places them on the tileplan
 
-      // each player moves tiles from the completed tilerows to the tileplan
+    // each player moves tiles from the completed tilerows to the tileplan
 
-      // for each player compute the final score
+    // for each player compute the final score
   }
 
-  static newGame(numberOfPlayers: number) {
+  static newGame (numberOfPlayers: number) {
     const tileBag = TileBag.newTileBag()
     const factories = TileFactory.forPlayers(numberOfPlayers, tileBag)
     const players = new Array(numberOfPlayers).fill(1).map(() => Player.newPlayer(uuid()))
