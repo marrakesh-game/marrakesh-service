@@ -15,5 +15,6 @@ games
 games
   .route('/:id')
   .get(gameController.getGameById)
+  .delete(gameController.deleteGameById)
 
 export default games

@@ -2,11 +2,11 @@ import v4 from 'uuid/v4'
 import TileBag from './tileBag'
 import Player from './player'
 import TileFactory from './tileFactory'
-import uuid from 'uuid'
 
-enum GameState {
-  Ongoing,
-  Finished
+export enum GameState {
+  NotStarted = 'Not started',
+  Ongoing = 'Ongoing',
+  Finished = 'Finished'
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -35,9 +35,9 @@ class GameRound {
  * Represents a game of Marrakesh.
  */
 class Game {
-  gameState = GameState.Ongoing
+  gameState = GameState.NotStarted
 
-  constructor (readonly id: string, readonly players: Player[], readonly tileFactories: TileFactory[], readonly tileBag: TileBag) {
+  constructor (readonly id: string, readonly tileBag: TileBag) {
   }
 
   gameOver () {
@@ -64,12 +64,12 @@ class Game {
     // for each player compute the final score
   }
 
-  static newGame (numberOfPlayers: number) {
+  static newGame () {
     const tileBag = TileBag.newTileBag()
-    const factories = TileFactory.forPlayers(numberOfPlayers, tileBag)
-    const players = new Array(numberOfPlayers).fill(1).map(() => Player.newPlayer(uuid()))
+    // const factories = TileFactory.forPlayers(numberOfPlayers, tileBag)
+    // const players = new Array(numberOfPlayers)//.fill(1).map(() => Player.newPlayer(uuid()))
 
-    return new Game(v4(), players, factories, tileBag)
+    return new Game(v4(), tileBag)
   }
 }
 

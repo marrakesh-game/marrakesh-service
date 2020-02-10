@@ -8,16 +8,24 @@ class GameRepository {
     return this.collection.findOne({ id })
   }
 
+  deleteGameById (id: string) {
+    return this.collection.deleteOne({ id })
+  }
+
   storeGame (game: Game) {
     this.collection.insertOne(game)
   }
 
-  findAllGames (): Promise<Game[]> {
-    return this.collection.findOne({})
+  async findAllGames (): Promise<Game[]> {
+    const cursor = this.collection.find({}, {
+      limit: 100,
+      projection: { id: true, gameState: true }
+    })
+
+    return cursor.toArray()
   }
 
   static newGameRepository (db: Db) {
-    console.log('in the real thing')
     const collection = db.collection('games')
 
     return new GameRepository(collection)

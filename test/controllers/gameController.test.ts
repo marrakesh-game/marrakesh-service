@@ -7,9 +7,10 @@ import { Db, Collection } from 'mongodb'
 import { OK, NOT_FOUND } from 'http-status'
 import Game from '../../src/models/game'
 import TileBag from '../../src/models/tileBag'
-jest.mock('../../src/repositories/gameRepository')
 
-import uuid = require('uuid')
+import uuid from 'uuid/v4'
+import { objectContaining } from 'expect'
+jest.mock('../../src/repositories/gameRepository')
 
 describe('the controller', () => {
   let mockGameRepository: GameRepository, mockDb: Db, mockCollection: Collection, request: Request, response: Response
@@ -46,14 +47,16 @@ describe('the controller', () => {
       beforeEach(() => {
         gameId = uuid()
         request.params.id = gameId
-        game = new Game(gameId, [], [], new TileBag([]));
+        game = new Game(gameId, new TileBag([]));
         (mockGameRepository.findGameById as jest.Mock).mockResolvedValue(game)
       })
 
       it('should return the game', async () => {
         await getGameById(request, response)
 
-        expect(response.send).toHaveBeenCalledWith(game)
+        expect(response.send).toHaveBeenCalledWith(objectContaining({
+          gameId: game.id
+        }))
       })
       it('should send a status of 200', async () => {
         await getGameById(request, response)
