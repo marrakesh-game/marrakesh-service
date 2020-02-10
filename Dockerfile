@@ -17,6 +17,7 @@ USER node
 RUN cd /home/node && \
     npm ci
 
+COPY config/ /home/node/config/
 COPY src/ /home/node/src/
 COPY test/ /home/node/test/
 
@@ -30,6 +31,7 @@ FROM node:12-buster-slim
 USER node
 ENV NODE_ENV=production
 
+COPY --from=build /home/node/config /home/node/config
 COPY --from=build /home/node/dist /home/node/app
 COPY --from=build /home/node/node_modules /home/node/node_modules
 
