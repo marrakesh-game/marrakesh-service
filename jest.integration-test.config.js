@@ -9,12 +9,10 @@ module.exports = {
     'js'
   ],
   transform: {
-    '^.+\\.(ts|tsx)$': 'ts-jest'
+    '^.+\\.(ts)$': 'ts-jest'
   },
   testMatch: [
-    '**/test/**/*.test.(ts|js)'
+    '**/test-integration/**/*.integration-test.ts'
   ],
-  testEnvironment: 'node',
-  resetMocks: true,
-  resetModules: true
+  testEnvironment: 'node'
 }

@@ -1,9 +1,8 @@
 import { createLogger } from 'bunyan'
 
-const version = process.env.VERSION
-const newLogger = (name: string) => createLogger({
+const newLogger = (name: string, revision = process.env.REVISON || 'n/a') => createLogger({
   name,
-  version,
+  revision,
   src: process.env.NODE_ENV === 'development'
 })
 

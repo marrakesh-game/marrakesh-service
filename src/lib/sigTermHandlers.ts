@@ -1,9 +1,14 @@
 import newLogger from './logger'
 const logger = newLogger(__filename)
 
-type DisconnectFunction = () => Promise<void>
-interface Configuration {
+export type DisconnectFunction = () => Promise<void>
+export interface Configuration {
   disconnect: DisconnectFunction;
+}
+
+export interface Handlers {
+  onSignal: () => Promise<void>;
+  onShutdown: () => Promise<void>;
 }
 
 const onSignal = (disconnect: DisconnectFunction) => async () => {
@@ -14,7 +19,7 @@ const onShutdown = async () => {
   logger.info('Shutting down')
 }
 
-const init = (configuration: Configuration) => ({
+const init: (configuration: Configuration) => Handlers = (configuration) => ({
   onSignal: onSignal(configuration.disconnect),
   onShutdown
 })

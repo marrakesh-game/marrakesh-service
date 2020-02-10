@@ -1,0 +1,6 @@
+{
+  "mongoDb": {
+    "databaseName": "spike_be_service_int",
+    "connectionUrl": "mongodb://admin:admin@localhost:27017"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "mongoDb": {
+    "databaseName": "MONGODB_DATABASE_NAME",
+    "connectionUrl": "MONGODB_CONNECTION_URL"
+  }
+}

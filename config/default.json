@@ -1,0 +1,6 @@
+{
+  "mongoDb": {
+    "databaseName": "marrakesh",
+    "connectionUrl": "mongodb://admin:admin@localhost:27017"
+  }
+}

@@ -1,15 +1,17 @@
-import express from 'express'
+
+import { Express } from 'express'
 import games from './routes/gameRouter'
 import health from './routes/healthRouter'
 import ready from './routes/readinessRouter'
-const app = express()
 
-app.set('port', process.env.PORT || 3000)
+export default (express: () => Express) => {
+  const app = express()
 
-app.get('/', (req, res) => res.sendStatus(200))
+  app.set('port', parseInt(process.env.PORT || '3000', 10))
 
-app.use('/games', games)
-app.use('/health', health)
-app.use('/ready', ready)
+  app.use('/games', games)
+  app.use('/probes/health', health)
+  app.use('/probes/ready', ready)
 
-export default app
+  return app
+}

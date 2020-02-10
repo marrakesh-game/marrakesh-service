@@ -1,10 +1,11 @@
 import { Request, Response } from 'express'
-import { isHealthy } from '../lib/mongo'
-
+import { isReady } from '../lib/mongo'
+import { OK, INTERNAL_SERVER_ERROR } from 'http-status-codes'
 export default class ReadinessController {
   isReady = async (req: Request, res: Response) => {
-    res.status(200).send({
-      isReady: await isHealthy()
+    const mongoReady = await isReady()
+    res.status(mongoReady ? OK : INTERNAL_SERVER_ERROR).send({
+      isReady: mongoReady
     })
   }
 }
