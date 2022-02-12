@@ -44,7 +44,7 @@
   "homepage": "https://github.com/marrakesh-game/marrakesh-service#readme",
   "dependencies": {
     "@godaddy/terminus": "^4.3.1",
-    "ajv": "^6.10.2",
+    "ajv": "^6.12.3",
     "body-parser": "^1.19.0",
     "bunyan": "^1.8.12",
     "compression": "^1.7.4",
